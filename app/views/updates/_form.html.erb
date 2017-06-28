@@ -1,0 +1,27 @@
+<%= form_with(model: update, local: true) do |form| %>
+  <% if update.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(update.errors.count, "error") %> prohibited this update from being saved:</h2>
+
+      <ul>
+      <% update.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :update_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :upload %>
+    <%= form.text_area :upload, id: :update_upload %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

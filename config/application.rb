@@ -11,6 +11,7 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
+require "apartment/elevators/subdomain"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -26,6 +27,13 @@ module PhotoKeeper
     # -- all .rb files in that directory are automatically loaded.
 
     # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :erb
+      g.stylesheets     false
+      g.javascripts     false
+      g.system_tests = nil
+    end
+    config.middleware.use Apartment::Elevators::Subdomain
   end
 end

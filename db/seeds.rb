@@ -6,26 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create!(
-  name: 'Admin User',
   email: "admin@example.com",
   password: "passwordpassword",
-  password_confirmation: "passwordpassword"
 )
 
 User.create!(
-  name: 'Admin User',
   email: "regular@example.com",
   password: "passwordpassword",
-  password_confirmation: "passwordpassword"
 )
 
 5.times do
   random_password = Faker::Internet.password(16, 26)
   User.create!(
-    name: Faker::Name.name,
     email: Faker::Internet.email,
     password: random_password,
-    password_confirmation: random_password
   )
 end
 

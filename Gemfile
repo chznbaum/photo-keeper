@@ -54,6 +54,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Authorization
 gem 'devise', '~> 4.3'
-
-# Multitenancy
-gem 'apartment', '~> 1.2'

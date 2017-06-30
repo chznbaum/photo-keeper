@@ -5,10 +5,25 @@
   <small>Submitted <%= time_ago_in_words(comment.created_at) %></small>
 </p>
 
+<p>
+  <%= link_to pluralize(comment.comments.count, "Reply"), '#' %>
+</p>
 <% if current_user %>
-  <%= form_for [@comment, current_user, Comment.new] do |f| %>
+  <p>
+    <%= form_for [comment, Like.new] do |f| %>
+      <%= f.hidden_field :comment_id, value: comment.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.submit pluralize(comment.likes.count, 'Like') %>
+    <% end %>
+  </p>
+<% end %>
+
+<% if current_user %>
+  <%= form_for [comment, Comment.new] do |f| %>
     <%= f.label :content, 'Leave a comment' %>
     <%= f.text_area :content %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :comment_id, value: comment.id %>
     <%= f.submit 'Reply' %>
   <% end %>
 <% end %>

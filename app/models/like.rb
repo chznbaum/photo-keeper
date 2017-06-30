@@ -4,5 +4,5 @@ class Like < ApplicationRecord
   belongs_to :user
   belongs_to :likeable, polymorphic: true
   acts_as_tenant(:site)
-  validates :user_id, uniqueness: { scope: :likeable_id}
+  validates :user_id, uniqueness: { scope: [:likeable_id, :likeable_type]}
 end

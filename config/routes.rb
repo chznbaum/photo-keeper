@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   resources :updates do
     resources :comments
+    resources :likes
   end
   resources :comments do
     resources :comments
+    resources :likes
   end
   get 'about', to: 'pages#about'
 

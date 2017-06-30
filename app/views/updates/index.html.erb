@@ -5,6 +5,19 @@
     <%= update.content %>
   </p>
   <p>
-    Posted to <%= time_ago_in_words(update.created_at) %> | <%= link_to('Show Page', update) %>
+    Posted <%= time_ago_in_words(update.created_at) %> | <%= link_to('Show Page', update) %>
   </p>
+  <p>
+    <%= pluralize(update.comments.count, "Comment") %>
+  </p>
+
+  <% if current_user %>
+    <p>
+      <%= form_for [update, Like.new] do |f| %>
+        <%= f.hidden_field :update_id, value: update.id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.submit pluralize(update.likes.count, 'Like') %>
+      <% end %>
+    </p>
+  <% end %>
 <% end %>

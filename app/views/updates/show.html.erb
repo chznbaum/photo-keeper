@@ -1,0 +1,20 @@
+<%= image_tag @update.upload %>
+<p>
+  <%= @update.content %>
+</p>
+<p>
+  <small>Posted <%= time_ago_in_words(@update.created_at) %> | <%= link_to('Back to Updates', updates_path) %></small>
+</p>
+
+<h2>Comments</h2>
+<% if current_user %>
+  <%= form_for [@update, current_user, Comment.new] do |f| %>
+    <%= f.label :content, 'Leave a comment' %>
+    <%= f.text_area :content %>
+    <%= f.submit 'Add Comment' %>
+  <% end %>
+<% end %>
+
+<ul>
+  <%= render(partial: 'comments/comment', collection: @update.comments) %>
+</ul>

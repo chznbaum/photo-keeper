@@ -1,0 +1,18 @@
+<li>
+  <%= comment.content %>
+</li>
+<p>
+  <small>Submitted <%= time_ago_in_words(comment.created_at) %></small>
+</p>
+
+<% if current_user %>
+  <%= form_for [@comment, current_user, Comment.new] do |f| %>
+    <%= f.label :content, 'Leave a comment' %>
+    <%= f.text_area :content %>
+    <%= f.submit 'Reply' %>
+  <% end %>
+<% end %>
+
+<ul>
+  <%= render(partial: 'comments/comment', collection: comment.comments) %>
+</ul>

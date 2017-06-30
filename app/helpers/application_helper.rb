@@ -1,6 +1,6 @@
 module ApplicationHelper
   def login_helper style, tag_type
-    if current_user
+    if !current_user
       login_items = [
         {
           url: new_user_registration_path,
@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def copyright_generator
-    @copyright = '&copy;2017 Chazona Baum'
+    @copyright = '©2017 Chazona Baum'
   end
 
   def nav_items

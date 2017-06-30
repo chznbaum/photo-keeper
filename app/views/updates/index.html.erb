@@ -1,0 +1,10 @@
+<h1>Updates</h1>
+<% @updates.each do |update| %>
+  <%= image_tag update.upload %>
+  <p>
+    <%= update.content %>
+  </p>
+  <p>
+    Posted to <%= time_ago_in_words(update.created_at) %> | <%= link_to('Show Page', update) %>
+  </p>
+<% end %>

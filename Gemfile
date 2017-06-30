@@ -57,3 +57,7 @@ gem 'devise', '~> 4.3'
 
 # Multitenancy
 gem 'acts_as_tenant', '~> 0.4.1'
+
+# Bootstrap
+gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'

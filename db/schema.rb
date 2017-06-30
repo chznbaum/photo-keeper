@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628141826) do
+ActiveRecord::Schema.define(version: 20170629235732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "kids", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.text "photo"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_kids_on_site_id"
+  end
+
+  create_table "sites", force: :cascade do |t|
+    t.string "name"
+    t.string "subdomain"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sites_on_user_id"
+  end
+
+  create_table "updates", force: :cascade do |t|
+    t.text "upload"
+    t.text "content"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "kid_id"
+    t.index ["kid_id"], name: "index_updates_on_kid_id"
+    t.index ["site_id"], name: "index_updates_on_site_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,8 +58,12 @@ ActiveRecord::Schema.define(version: 20170628141826) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "kids", "sites"
+  add_foreign_key "updates", "kids"
+  add_foreign_key "updates", "sites"
 end

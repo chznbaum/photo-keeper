@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701202836) do
+ActiveRecord::Schema.define(version: 20170701204007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(version: 20170701202836) do
     t.text "content"
     t.integer "commentable_id"
     t.string "commentable_type"
-    t.bigint "user_id"
     t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "member_id"
+    t.index ["member_id"], name: "index_comments_on_member_id"
     t.index ["site_id"], name: "index_comments_on_site_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "kids", force: :cascade do |t|
@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 20170701202836) do
   create_table "likes", force: :cascade do |t|
     t.integer "likeable_id"
     t.string "likeable_type"
-    t.bigint "user_id"
     t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "member_id"
+    t.index ["member_id"], name: "index_likes_on_member_id"
     t.index ["site_id"], name: "index_likes_on_site_id"
-    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(version: 20170701202836) do
     t.inet "last_sign_in_ip"
     t.string "name"
     t.text "avatar"
-    t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "site_id"
     t.index ["email"], name: "index_members_on_email", unique: true
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
     t.index ["site_id"], name: "index_members_on_site_id"
@@ -106,10 +106,12 @@ ActiveRecord::Schema.define(version: 20170701202836) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "members"
   add_foreign_key "comments", "sites"
   add_foreign_key "kids", "sites"
+  add_foreign_key "likes", "members"
   add_foreign_key "likes", "sites"
-  add_foreign_key "likes", "users"
+  add_foreign_key "members", "sites"
   add_foreign_key "updates", "kids"
   add_foreign_key "updates", "sites"
 end

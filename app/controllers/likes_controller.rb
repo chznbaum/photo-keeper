@@ -19,7 +19,7 @@ class LikesController < ApplicationController
 
     private
     def like_params
-        params.require(:like).permit(:user_id, :update_id, :comment_id)
+        params.require(:like).permit(:member_id, :update_id, :comment_id)
     end
 
     def find_likeable

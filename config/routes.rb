@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :members
-  devise_for :users
+  devise_for :members, controllers: {
+    sessions: 'members/sessions'
+  }
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
   resources :updates do
     resources :comments
     resources :likes

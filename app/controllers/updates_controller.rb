@@ -1,4 +1,5 @@
 class UpdatesController < ApplicationController
+  layout 'update'
   def index
     @updates = Update.all
   end

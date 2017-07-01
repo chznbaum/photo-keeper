@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PhotoKeeper</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'update', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render "shared/application_nav" %>
+    <div class="container">
+      <div class="row">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        <div class="col-sm-8">
+          <%= yield %>
+        </div>
+        <div class="col-sm-4">
+        </div>
+      </div>
+    </div>
+    <%= render "shared/update_footer" %>
+  </body>
+</html>

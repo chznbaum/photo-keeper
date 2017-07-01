@@ -1,23 +1,19 @@
 <h1>Updates</h1>
 <% @updates.each do |update| %>
-  <%= image_tag update.upload %>
-  <p>
-    <%= update.content %>
-  </p>
-  <p>
-    Posted <%= time_ago_in_words(update.created_at) %> | <%= link_to('Show Page', update) %>
-  </p>
-  <p>
-    <%= pluralize(update.comments.count, "Comment") %>
-  </p>
 
-  <% if current_user %>
-    <p>
-      <%= form_for [update, Like.new] do |f| %>
-        <%= f.hidden_field :update_id, value: update.id %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.submit pluralize(update.likes.count, 'Like') %>
+  <div class="card mb-3">
+    <a href="<%= update_path(update) %>"><img src='<%= update.upload %>' class="card-img-top"></a>
+    <div class="card-block">
+      <p class="card-text"><%= update.content %></p>
+      <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(update.created_at) %> ago</small></p>
+      <% if current_user %>
+        <%= form_for [update, Like.new] do |f| %>
+          <%= f.hidden_field :update_id, value: update.id %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.submit pluralize(update.likes.count, 'Like'), class: "btn btn-secondary" %>
+        <% end %>
       <% end %>
-    </p>
-  <% end %>
+      <%= link_to pluralize(update.comments.count, 'Comment'), update, class: "btn btn-secondary" %>
+    </div>
+  </div>
 <% end %>

@@ -3,34 +3,33 @@
   <%= @update.content %>
 </p>
 <p>
-  <small>Posted <%= time_ago_in_words(@update.created_at) %> | <%= link_to('Back to Updates', updates_path) %></small>
-</p>
-
-<p>
-  <%= pluralize(@update.comments.count, "Comment") %>
+  <small>Posted <%= time_ago_in_words(@update.created_at) %> ago</small>
 </p>
 
 <% if current_user %>
-  <p>
-    <%= form_for [@update, Like.new] do |f| %>
-      <%= f.hidden_field :update_id, value: @update.id %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      <%= f.submit pluralize(@update.likes.count, 'Like') %>
-    <% end %>
-  </p>
+<div>
+  <%= form_for [@update, Like.new] do |f| %>
+    <%= f.hidden_field :update_id, value: @update.id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.submit pluralize(@update.likes.count, 'Like'), class: 'btn btn-secondary' %>
+  <% end %>
+  <%= link_to pluralize(@update.comments.count, 'Comment'), '#', class: "btn btn-secondary" %>
+</div>
+<div>
+  <%= form_for [@update, Comment.new] do |f| %>
+    <div class="form-group">
+      <%= f.label :content, 'Leave a comment' %>
+      <%= f.text_area :content, class: 'form-control', 'aria-label': 'Comment Content' %>
+    </div>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :update_id, value: @update.id %>
+    <%= f.submit 'Add Comment', class: 'btn btn-primary' %>
+  <% end %>
+</div>
 <% end %>
 
 <h2>Comments</h2>
-<% if current_user %>
-  <%= form_for [@update, Comment.new] do |f| %>
-    <%= f.label :content, 'Leave a comment' %>
-    <%= f.text_area :content %>
-    <%= f.hidden_field :update_id, value: @update.id %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.submit 'Add Comment' %>
-  <% end %>
-<% end %>
 
-<ul>
+<ul class="comments-list">
   <%= render(partial: 'comments/comment', collection: @update.comments) %>
 </ul>

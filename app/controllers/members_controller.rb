@@ -8,6 +8,7 @@ class MembersController < ApplicationController
   end
 
   def show
+    @comments = Comment.where(:comments => { :member_id => @member.id })
   end
 
   private

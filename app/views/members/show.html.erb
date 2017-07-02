@@ -1,2 +1,6 @@
 <h1><%= @member.name %></h1>
 <%= image_tag @member.avatar %>
+
+<ul class="comments-list">
+  <%= render(partial: 'comments/comment', collection: @comments) %>
+</ul>

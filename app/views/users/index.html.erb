@@ -1,0 +1,12 @@
+<h1>Users</h1>
+<% @users.each do |user| %>
+
+  <div class="card mb-3">
+    <div class="card-block">
+      <p class="card-text"><%= user.email %></p>
+      <% user.sites.each do |site| %>
+        <p class="card-text"><%= site.name %></p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

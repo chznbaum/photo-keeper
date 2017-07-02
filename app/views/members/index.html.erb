@@ -1,0 +1,17 @@
+<h1>Members</h1>
+<% @members.each do |member| %>
+
+  <div class="card mb-3">
+    <div class="card-block">
+      <div class="row">
+        <div class="col-2">
+          <%= image_tag member.avatar %>
+        </div>
+        <div class="col-10">
+          <p class="card-text"><strong><%= link_to member.name, member %></strong></p>
+          <p class="card-text"><%= member.email %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

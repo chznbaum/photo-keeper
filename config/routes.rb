@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
   resources :users, only: [:index]
   resources :members, only: [:index, :show]
+  resources :kids, only: [:index, :show]
   resources :updates do
     resources :comments
     resources :likes

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PhotoKeeper</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'album', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render "shared/application_nav" %>
+    <%= render 'shared/album_masthead' %>
+
+    <div class="row">
+      <div class="col-12">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+    </div>
+
+    <%= yield %>
+
+    <%= render "shared/update_footer" %>
+  </body>
+</html>

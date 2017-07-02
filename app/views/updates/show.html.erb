@@ -1,0 +1,35 @@
+<%= image_tag @update.upload %>
+<p>
+  <%= @update.content %>
+</p>
+<p>
+  <small>Posted <%= time_ago_in_words(@update.created_at) %> ago</small>
+</p>
+
+<% if member_signed_in? %>
+<div>
+  <%= form_for [@update, Like.new] do |f| %>
+    <%= f.hidden_field :update_id, value: @update.id %>
+    <%= f.hidden_field :member_id, value: current_member.id %>
+    <%= f.submit pluralize(@update.likes.count, 'Like'), class: 'btn btn-secondary' %>
+  <% end %>
+  <%= link_to pluralize(@update.comments.count, 'Comment'), '#', class: "btn btn-secondary" %>
+</div>
+<div>
+  <%= form_for [@update, Comment.new] do |f| %>
+    <div class="form-group">
+      <%= f.label :content, 'Leave a comment' %>
+      <%= f.text_area :content, class: 'form-control', 'aria-label': 'Comment Content' %>
+    </div>
+    <%= f.hidden_field :member_id, value: current_member.id %>
+    <%= f.hidden_field :update_id, value: @update.id %>
+    <%= f.submit 'Add Comment', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+<% end %>
+
+<h2>Comments</h2>
+
+<ul class="comments-list">
+  <%= render(partial: 'comments/comment', collection: @update.comments) %>
+</ul>

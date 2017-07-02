@@ -13,6 +13,6 @@ class KidsController < ApplicationController
   private
   
   def set_kid
-    @kid = Kid.find(params[:id])
+    @kid = Kid.includes(:updates).find(params[:id])
   end
 end

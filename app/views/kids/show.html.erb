@@ -1,2 +1,3 @@
 <h1><%= @kid.name %></h1>
 <%= image_tag @kid.photo %>
+<%= render(partial: 'updates/update', collection: @kid.updates) %>
